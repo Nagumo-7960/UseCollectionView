@@ -9,10 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    let width = UIScreen.main.bounds.size.width
+    let height = UIScreen.main.bounds.size.height
+    
     @IBOutlet weak var CollectionView: UICollectionView!{
         didSet{
             let layout = UICollectionViewFlowLayout()
-            layout.itemSize = CGSize(width: 150, height: 150)
+            layout.itemSize = CGSize(width: (width/2)-50, height: (width/2)-50)
             layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
             CollectionView.collectionViewLayout = layout
         }
