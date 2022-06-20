@@ -40,8 +40,8 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = UIColor.blue
         
-//        let label = (cell.contentView.viewWithTag(1) as! UILabel)
-//        label.text = "test"
+        let label = (cell.contentView.viewWithTag(1) as! UILabel)
+        label.text = "test"
         
         return cell
     }
