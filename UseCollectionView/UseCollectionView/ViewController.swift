@@ -12,7 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var CollectionView: UICollectionView!{
         didSet{
             let layout = UICollectionViewFlowLayout()
-            layout.itemSize = CGSize(width: 10, height: 20)
+            layout.itemSize = CGSize(width: 150, height: 150)
+            layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
             CollectionView.collectionViewLayout = layout
         }
     }
