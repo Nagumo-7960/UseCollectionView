@@ -8,21 +8,28 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var CollectionView: UICollectionView!
+    
+    @IBOutlet weak var CollectionView: UICollectionView!{
+        didSet{
+            let layout = UICollectionViewFlowLayout()
+            layout.itemSize = CGSize(width: 10, height: 20)
+            CollectionView.collectionViewLayout = layout
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
-        
+    
 }
 
 
 
 extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-           return 1
-       }
+        return 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
