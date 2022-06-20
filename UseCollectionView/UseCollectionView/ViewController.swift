@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    let textArray = ["いちご", "ぶどう", "れもん", "りんご", "ばなな"]
+    
     
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
@@ -15,14 +17,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var CollectionView: UICollectionView!{
         didSet{
             let layout = UICollectionViewFlowLayout()
-            layout.itemSize = CGSize(width: (width/2)-50, height: (width/2)-50)
+            layout.itemSize = CGSize(width: (width/2)-30, height: (width/2)-30)
             layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
             CollectionView.collectionViewLayout = layout
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        override func viewDidLoad() {
+            super.viewDidLoad()
         
     }
     
@@ -38,6 +39,10 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = UIColor.blue
+        
+//        let label = (cell.contentView.viewWithTag(1) as! UILabel)
+//        label.text = "test"
+        
         return cell
     }
     

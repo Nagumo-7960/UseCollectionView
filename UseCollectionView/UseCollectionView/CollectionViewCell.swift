@@ -7,9 +7,8 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+class CollectionViewCell: UICollectionViewCell {    required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
         self.layer.cornerRadius = 8.0        
     }
 }
