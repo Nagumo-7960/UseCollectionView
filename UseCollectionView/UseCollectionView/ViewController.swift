@@ -41,7 +41,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         cell.backgroundColor = UIColor.blue
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
-        label.text = textArray.first
+        label.text = textArray.randomElement()
         
         return cell
     }
