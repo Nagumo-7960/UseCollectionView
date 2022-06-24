@@ -17,8 +17,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var CollectionView: UICollectionView!{
         didSet{
             let layout = UICollectionViewFlowLayout()
-            layout.itemSize = CGSize(width: (width/2)-30, height: (width/2)-30)
-            layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+            layout.itemSize = CGSize(width: (width/2)-10, height: (width/2)-10)
+            layout.minimumInteritemSpacing = 5
+            layout.minimumLineSpacing = 30
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
             CollectionView.collectionViewLayout = layout
         }
     }
@@ -39,6 +41,10 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = UIColor.blue
+        
+        let sampleImage = UIImage(named: "Banana_Single.jpg")
+//        let image = (cell.contentView.viewWithTag(2) as! UIImageView)
+//        image.image = sampleImage!
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
         label.text = textArray.randomElement()
