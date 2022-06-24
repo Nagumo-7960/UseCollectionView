@@ -45,9 +45,9 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         cell.layer.shadowRadius = 5.0
         //        cell.backgroundColor = UIColor.blue
         
-        let sampleImage = UIImage(named: "Banana_Single.jpg")
-        //        let image = (cell.contentView.viewWithTag(2) as! UIImageView)
-        //        image.image = sampleImage!
+        let sampleImage = UIImage(named: "Banana-Single.jpg")
+                let image = (cell.contentView.viewWithTag(2) as! UIImageView)
+                image.image = sampleImage!
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
         label.text = textArray.randomElement()
