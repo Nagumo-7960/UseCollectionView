@@ -40,14 +40,15 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.layer.shadowOffset = CGSize(width: 1, height: 1)
-        cell.layer.shadowOpacity = 0.2
-        cell.layer.shadowRadius = 5.0
+        cell.layer.shadowOffset = CGSize(width: 0, height: 1)
+        cell.layer.shadowOpacity = 0.1
+        cell.layer.shadowRadius = 8.0
         //        cell.backgroundColor = UIColor.blue
         
         let sampleImage = UIImage(named: "Banana-Single.jpg")
-                let image = (cell.contentView.viewWithTag(2) as! UIImageView)
-                image.image = sampleImage!
+        let image = (cell.contentView.viewWithTag(2) as! UIImageView)
+        image.layer.cornerRadius = image.frame.height*0.4
+        image.image = sampleImage!
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
         label.text = textArray.randomElement()
