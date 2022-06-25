@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     let textArray = ["いちご", "ぶどう", "れもん", "りんご", "ばなな"]
     
+    let imageArray = ["Banana-Single.jpg","remon.jpeg"]
     
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
@@ -44,8 +45,9 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         cell.layer.shadowOpacity = 0.1
         cell.layer.shadowRadius = 8.0
         //        cell.backgroundColor = UIColor.blue
+        let imageSelect:String = imageArray.randomElement() ?? "Banana-Single.jpg"
         
-        let sampleImage = UIImage(named: "Banana-Single.jpg")
+        let sampleImage = UIImage(named: imageSelect)
         let image = (cell.contentView.viewWithTag(2) as! UIImageView)
         image.layer.cornerRadius = image.frame.height*0.4
         image.image = sampleImage!
