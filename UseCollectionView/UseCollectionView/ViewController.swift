@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     let textArray = ["いちご", "ぶどう", "れもん", "りんご", "ばなな"]
     
-    let imageArray = ["Banana-Single.jpg","remon.jpeg"]
+    let imageArray = ["Banana-Single.jpg","remon.jpeg","grape.jpeg"]
     
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
