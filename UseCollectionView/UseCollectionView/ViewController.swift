@@ -51,12 +51,34 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getQiitaAPI()
     }
     
 }
 
+private func getQiitaAPI(){
+    guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=1")else {return}
 
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+
+    let task = URLSession.shared.dataTask(with: url){(data, respose, err) in
+        if let err = err{
+            print("情報の取得に失敗しました。 :", err)
+            return
+        }
+        if let data = data{
+            do{
+                let json = try! JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                print("json: ", json)
+            }catch(let err){
+                print("情報の取得に失敗しました。:", err)
+            }
+        }
+    }
+
+    task.resume()
+}
 
 
 
