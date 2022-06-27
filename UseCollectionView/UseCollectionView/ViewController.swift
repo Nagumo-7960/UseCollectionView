@@ -12,6 +12,30 @@ class ViewController: UIViewController {
     
     let imageArray = ["Banana-Single.jpg","remon.jpeg","grape.jpeg"]
     
+    
+    //Dataを構造体で受け取る
+    struct Qiita:Codable{
+        let title:String
+        let createdAt:String
+        let user: User
+        
+        enum CodingKeys:String, CodingKey{
+            case title = "title"
+            case createdAt = "created_at"
+            case user = "user"
+        }
+    }
+    
+    struct User:Codable{
+        let name:String
+        let profileImageUrl:String
+        
+        enum CodingKeys:String, CodingKey{
+            case name = "name"
+            case profileImageUrl = "profile_image_url"
+        }
+    }//Dataを構造体で受け取る
+    
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
     
@@ -31,6 +55,8 @@ class ViewController: UIViewController {
     }
     
 }
+
+
 
 
 
