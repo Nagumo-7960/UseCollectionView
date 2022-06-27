@@ -7,34 +7,33 @@
 
 import UIKit
 
+//Dataを構造体で受け取る
+struct Qiita:Codable{
+    let title:String
+    let createdAt:String
+    let user: User
+    
+    enum CodingKeys:String, CodingKey{
+        case title = "title"
+        case createdAt = "created_at"
+        case user = "user"
+    }
+}
+
+struct User:Codable{
+    let name:String
+    let profileImageUrl:String
+    
+    enum CodingKeys:String, CodingKey{
+        case name = "name"
+        case profileImageUrl = "profile_image_url"
+    }
+}//Dataを構造体で受け取る
+
 class ViewController: UIViewController {
     let textArray = ["いちご", "ぶどう", "れもん", "りんご", "ばなな"]
     
     let imageArray = ["Banana-Single.jpg","remon.jpeg","grape.jpeg"]
-    
-    
-    //Dataを構造体で受け取る
-    struct Qiita:Codable{
-        let title:String
-        let createdAt:String
-        let user: User
-        
-        enum CodingKeys:String, CodingKey{
-            case title = "title"
-            case createdAt = "created_at"
-            case user = "user"
-        }
-    }
-    
-    struct User:Codable{
-        let name:String
-        let profileImageUrl:String
-        
-        enum CodingKeys:String, CodingKey{
-            case name = "name"
-            case profileImageUrl = "profile_image_url"
-        }
-    }//Dataを構造体で受け取る
     
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
@@ -58,10 +57,10 @@ class ViewController: UIViewController {
 
 private func getQiitaAPI(){
     guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=1")else {return}
-
+    
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
-
+    
     let task = URLSession.shared.dataTask(with: url){(data, respose, err) in
         if let err = err{
             print("情報の取得に失敗しました。 :", err)
@@ -69,14 +68,14 @@ private func getQiitaAPI(){
         }
         if let data = data{
             do{
-                let json = try! JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-                print("json: ", json)
+                let qiita = try JSONDecoder().decode([Qiita].self, from: data)
+                print("json: ", qiita)
             }catch(let err){
                 print("情報の取得に失敗しました。:", err)
             }
         }
     }
-
+    
     task.resume()
 }
 
