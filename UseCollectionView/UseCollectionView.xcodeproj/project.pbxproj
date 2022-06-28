@@ -104,11 +104,11 @@
 				9B0B196C284DEFD200370AEB /* AppDelegate.swift */,
 				9B0B196E284DEFD200370AEB /* SceneDelegate.swift */,
 				9B0B1970284DEFD200370AEB /* ViewController.swift */,
+				9B0B56B828572CDB00F3EE69 /* CollectionViewCell.swift */,
 				9B0B1972284DEFD200370AEB /* Main.storyboard */,
 				9B0B1975284DEFD400370AEB /* Assets.xcassets */,
 				9B0B1977284DEFD400370AEB /* LaunchScreen.storyboard */,
 				9B0B197A284DEFD400370AEB /* Info.plist */,
-				9B0B56B828572CDB00F3EE69 /* CollectionViewCell.swift */,
 			);
 			path = UseCollectionView;
 			sourceTree = "<group>";

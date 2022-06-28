@@ -87,6 +87,9 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.layer.shadowOffset = CGSize(width: 0, height: 1)
         cell.layer.shadowOpacity = 0.1
@@ -100,7 +103,9 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         image.image = sampleImage!
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
-        label.text = textArray.randomElement()
+//        label.text = textArray.randomElement()
+        
+
         
         return cell
     }
