@@ -31,6 +31,8 @@ struct User:Codable{
 }//Dataを構造体で受け取る
 
 class ViewController: UIViewController {
+    private var qiitas = [Qiita]()
+    
     let textArray = ["いちご", "ぶどう", "れもん", "りんご", "ばなな"]
     
     let imageArray = ["Banana-Single.jpg","remon.jpeg","grape.jpeg"]
@@ -51,6 +53,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getQiitaAPI()
+        
     }
     
 }
@@ -90,7 +93,9 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         
         
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)as! CollectionViewCell
+        
+        cell.qiita = qiitas[indexPath.row]
         cell.layer.shadowOffset = CGSize(width: 0, height: 1)
         cell.layer.shadowOpacity = 0.1
         cell.layer.shadowRadius = 8.0
@@ -103,9 +108,9 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         image.image = sampleImage!
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
-//        label.text = textArray.randomElement()
+        label.text = textArray.randomElement()
         
-
+        
         
         return cell
     }
@@ -117,6 +122,35 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         return 80
     }
     
+}
+
+class CollectionViewCell: UICollectionViewCell {    required init?(coder aDecoder: NSCoder) {
+    
+    let bodyTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "something in here"
+        label.font = .systemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    super.init(coder: aDecoder)
+    self.layer.cornerRadius = 8.0
+    addSubview(bodyTextLabel)
+    
+    var qiita: Qiita? {
+        didSet {
+            bodyTextLabel.text = qiita?.title
+            let url = URL(string: qiita?.user.profileImageUrl ?? "")
+            do {
+                let data = try Data(contentsOf: url!)
+                //                        let image = UIImage(data: data)
+                //                        userImageView.image = image
+            }catch let err {
+                print("Error : \(err.localizedDescription)")
+            }
+        }
+    }
+}
 }
 
 
