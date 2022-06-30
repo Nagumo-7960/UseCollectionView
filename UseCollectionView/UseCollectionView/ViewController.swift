@@ -28,7 +28,7 @@ struct User:Codable{
         case name = "name"
         case profileImageUrl = "profile_image_url"
     }
-}//Dataを構造体で受け取る
+}
 
 class ViewController: UIViewController {
     private var qiitas = [Qiita]()
