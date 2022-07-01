@@ -95,22 +95,22 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)as! CollectionViewCell
         
-        cell.qiita = qiitas[indexPath.row]
+//        cell.qiita = qiitas[indexPath.row]
         cell.layer.shadowOffset = CGSize(width: 0, height: 1)
         cell.layer.shadowOpacity = 0.1
         cell.layer.shadowRadius = 8.0
         //        cell.backgroundColor = UIColor.blue
-        let imageSelect:String = imageArray.randomElement() ?? "Banana-Single.jpg"
         
+        //とりあえず配列からランダムでテキスト、画像を選んでいる
+        let imageSelect:String = imageArray.randomElement() ?? "Banana-Single.jpg"
         let sampleImage = UIImage(named: imageSelect)
         let image = (cell.contentView.viewWithTag(2) as! UIImageView)
-        image.layer.cornerRadius = image.frame.height*0.4
         image.image = sampleImage!
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
         label.text = textArray.randomElement()
         
-        
+        image.layer.cornerRadius = image.frame.height*0.4
         
         return cell
     }
@@ -135,7 +135,6 @@ class CollectionViewCell: UICollectionViewCell {    required init?(coder aDecode
     }()
     super.init(coder: aDecoder)
     self.layer.cornerRadius = 8.0
-    addSubview(bodyTextLabel)
     
     var qiita: Qiita? {
         didSet {
@@ -143,8 +142,6 @@ class CollectionViewCell: UICollectionViewCell {    required init?(coder aDecode
             let url = URL(string: qiita?.user.profileImageUrl ?? "")
             do {
                 let data = try Data(contentsOf: url!)
-                //                        let image = UIImage(data: data)
-                //                        userImageView.image = image
             }catch let err {
                 print("Error : \(err.localizedDescription)")
             }
