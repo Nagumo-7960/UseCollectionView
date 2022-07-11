@@ -76,7 +76,7 @@ private func getQiitaAPI(){
         if let data = data{
             do{
                 let qiita = try JSONDecoder().decode([Qiita].self, from: data)
-                QiitaTitle = qiita.first?.title ?? ""
+                QiitaTitle = qiita.first?.user.name ?? ""
                 print("json: ", qiita)
             }catch(let err){
                 print("情報の取得に失敗しました。:", err)
@@ -113,7 +113,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         image.image = sampleImage!
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
-        label.text = textArray.randomElement()
+//        label.text = textArray.randomElement()
         
         
         
