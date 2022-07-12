@@ -35,7 +35,7 @@ var QiitaTitle = ""
 class ViewController: UIViewController {
     private var qiitas = [Qiita]()
     
-
+    
     
     let textArray = ["いちご", "ぶどう", "れもん", "りんご", "ばなな"]
     
@@ -60,32 +60,37 @@ class ViewController: UIViewController {
         
     }
     
-}
-
-private func getQiitaAPI(){
-    guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=1")else {return}
     
-    var request = URLRequest(url: url)
-    request.httpMethod = "GET"
-    
-    let task = URLSession.shared.dataTask(with: url){(data, respose, err) in
-        if let err = err{
-            print("情報の取得に失敗しました。 :", err)
-            return
-        }
-        if let data = data{
-            do{
-                let qiita = try JSONDecoder().decode([Qiita].self, from: data)
-                QiitaTitle = qiita.first?.user.name ?? ""
-                print("json: ", qiita)
-            }catch(let err){
-                print("情報の取得に失敗しました。:", err)
+    private func getQiitaAPI(){
+        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=1")else {return}
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: url){(data, respose, err) in
+            if let err = err{
+                print("情報の取得に失敗しました。 :", err)
+                return
+            }
+            if let data = data{
+                do{
+                    let qiita = try JSONDecoder().decode([Qiita].self, from: data)
+                    QiitaTitle = qiita.first?.user.name ?? ""
+                    print("json: ", qiita)
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                }catch(let err){
+                    print("情報の取得に失敗しました。:", err)
+                }
             }
         }
+        
+        task.resume()
     }
-    
-    task.resume()
+
 }
+
 
 
 
@@ -100,7 +105,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)as! CollectionViewCell
         
-//        cell.qiita = qiitas[indexPath.row]
+        //        cell.qiita = qiitas[indexPath.row]
         cell.layer.shadowOffset = CGSize(width: 0, height: 1)
         cell.layer.shadowOpacity = 0.1
         cell.layer.shadowRadius = 8.0
@@ -113,10 +118,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         image.image = sampleImage!
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
-//        label.text = textArray.randomElement()
-        
-        
-        
+        //        label.text = textArray.randomElement()
         label.text = QiitaTitle
         
         image.layer.cornerRadius = image.frame.height*0.4
