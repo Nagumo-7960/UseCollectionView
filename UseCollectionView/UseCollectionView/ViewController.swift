@@ -78,7 +78,7 @@ class ViewController: UIViewController {
                     QiitaTitle = qiita.first?.user.name ?? ""
                     print("json: ", qiita)
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+                        self.CollectionView.reloadData()
                     }
                 }catch(let err){
                     print("情報の取得に失敗しました。:", err)
