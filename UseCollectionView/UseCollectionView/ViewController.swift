@@ -31,6 +31,8 @@ struct User:Codable{
 }
 
 var QiitaTitle = ""
+var imageURL = ""
+var QiitaUserImage = UIImage()
 
 class ViewController: UIViewController {
     private var qiitas = [Qiita]()
@@ -76,6 +78,7 @@ class ViewController: UIViewController {
                 do{
                     let qiita = try JSONDecoder().decode([Qiita].self, from: data)
                     QiitaTitle = qiita.first?.user.name ?? ""
+                    imageURL = qiita.first?.user.profileImageUrl ?? ""
                     print("json: ", qiita)
                     DispatchQueue.main.async {
                         self.CollectionView.reloadData()
@@ -88,7 +91,7 @@ class ViewController: UIViewController {
         
         task.resume()
     }
-
+    
 }
 
 
@@ -113,14 +116,18 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         
         //とりあえず配列からランダムでテキスト、画像を選んでいる
         let imageSelect:String = imageArray.randomElement() ?? "Banana-Single.jpg"
-        let sampleImage = UIImage(named: imageSelect)
+        //        let sampleImage = UIImage(named: imageSelect)
+        let sampleImage = UIImage(named: imageURL)
         let image = (cell.contentView.viewWithTag(2) as! UIImageView)
-        image.image = sampleImage!
+        image.image = sampleImage
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
         //        label.text = textArray.randomElement()
-        label.text = QiitaTitle
-        
+        if(QiitaTitle==""){
+            label.text = "[NoName]"
+        }else{
+            label.text = QiitaTitle
+        }
         image.layer.cornerRadius = image.frame.height*0.4
         
         return cell
