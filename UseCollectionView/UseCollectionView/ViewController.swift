@@ -31,7 +31,7 @@ struct User:Codable{
 }
 
 var QiitaTitle = ""
-var imageURL = ""
+var imageURL = "https://pakutaso.cdn.rabify.me/shared/img/thumb/mitte20614029.jpg.webp?d=1420"
 var QiitaUserImage = UIImage()
 
 class ViewController: UIViewController {
@@ -117,9 +117,20 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         //とりあえず配列からランダムでテキスト、画像を選んでいる
         let imageSelect:String = imageArray.randomElement() ?? "Banana-Single.jpg"
         //        let sampleImage = UIImage(named: imageSelect)
-        let sampleImage = UIImage(named: imageURL)
-        let image = (cell.contentView.viewWithTag(2) as! UIImageView)
-        image.image = sampleImage
+        
+        let url = URL(string: imageURL ?? "")
+        do{
+            let data = try Data(contentsOf: url!)
+            let sampleImage = UIImage(data: data)
+            let image = (cell.contentView.viewWithTag(2) as! UIImageView)
+            image.image = sampleImage
+            image.layer.cornerRadius = image.frame.height*0.4
+        }catch let err {
+            print("Error : \(err.localizedDescription)")
+        }
+        
+        
+        
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
         //        label.text = textArray.randomElement()
@@ -128,7 +139,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         }else{
             label.text = QiitaTitle
         }
-        image.layer.cornerRadius = image.frame.height*0.4
+        
         
         return cell
     }
