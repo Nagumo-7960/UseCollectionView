@@ -30,19 +30,13 @@ struct User:Codable{
     }
 }
 
-var QiitaTitle = ""
+var qiitaUserName = ""
+//最初にnilだとエラーを吐いてしまうので、一時的に入れている画像URL
 var imageURL = "https://pakutaso.cdn.rabify.me/shared/img/thumb/mitte20614029.jpg.webp?d=1420"
-var QiitaUserImage = UIImage()
 
 class ViewController: UIViewController {
     private var qiitas = [Qiita]()
-    
-    
-    
-    let textArray = ["いちご", "ぶどう", "れもん", "りんご", "ばなな"]
-    
-    let imageArray = ["Banana-Single.jpg","remon.jpeg","grape.jpeg"]
-    
+
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
     
@@ -77,7 +71,7 @@ class ViewController: UIViewController {
             if let data = data{
                 do{
                     let qiita = try JSONDecoder().decode([Qiita].self, from: data)
-                    QiitaTitle = qiita.first?.user.name ?? ""
+                    qiitaUserName = qiita.first?.user.name ?? ""
                     imageURL = qiita.first?.user.profileImageUrl ?? ""
                     print("json: ", qiita)
                     DispatchQueue.main.async {
@@ -108,15 +102,11 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)as! CollectionViewCell
         
-        //        cell.qiita = qiitas[indexPath.row]
         cell.layer.shadowOffset = CGSize(width: 0, height: 1)
         cell.layer.shadowOpacity = 0.1
         cell.layer.shadowRadius = 8.0
-        //        cell.backgroundColor = UIColor.blue
         
-        //とりあえず配列からランダムでテキスト、画像を選んでいる
-        let imageSelect:String = imageArray.randomElement() ?? "Banana-Single.jpg"
-        //        let sampleImage = UIImage(named: imageSelect)
+
         
         let url = URL(string: imageURL ?? "")
         do{
@@ -134,10 +124,10 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
         //        label.text = textArray.randomElement()
-        if(QiitaTitle==""){
-            label.text = "[NoName]"
+        if(qiitaUserName==""){
+            label.text = "[nameless]"
         }else{
-            label.text = QiitaTitle
+            label.text = qiitaUserName
         }
         
         
@@ -155,19 +145,11 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
 
 class CollectionViewCell: UICollectionViewCell {    required init?(coder aDecoder: NSCoder) {
     
-    let bodyTextLabel: UILabel = {
-        let label = UILabel()
-        label.text = "something in here"
-        label.font = .systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     super.init(coder: aDecoder)
     self.layer.cornerRadius = 8.0
     
     var qiita: Qiita? {
         didSet {
-            bodyTextLabel.text = qiita?.title
             let url = URL(string: qiita?.user.profileImageUrl ?? "")
             do {
                 let data = try Data(contentsOf: url!)
