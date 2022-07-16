@@ -32,7 +32,7 @@ struct User:Codable{
 
 var qiitaUserName = ""
 //最初にnilだとエラーを吐いてしまうので、一時的に入れている画像URL
-var imageURL = "https://pakutaso.cdn.rabify.me/shared/img/thumb/mitte20614029.jpg.webp?d=1420"
+var imageURL = "https://cdn.pixabay.com/photo/2018/02/26/14/39/check-3183190_960_720.jpg"
 
 class ViewController: UIViewController {
     private var qiitas = [Qiita]()
