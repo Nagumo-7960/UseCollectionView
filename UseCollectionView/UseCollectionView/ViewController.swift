@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     
     
     private func getQiitaAPI(){
-        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=1")else {return}
+        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=5")else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
             if let data = data{
                 do{
                     let qiita = try JSONDecoder().decode([Qiita].self, from: data)
-                    qiitaUserName = qiita.first?.user.name ?? ""
+                    qiitaUserName = qiita[1].user.name
                     imageURL = qiita.first?.user.profileImageUrl ?? ""
                     print("json: ", qiita)
                     DispatchQueue.main.async {
