@@ -30,7 +30,7 @@ struct User:Codable{
     }
 }
 
-var qiitaUserName = ""
+var qiitaUserName = Array(repeating : "", count : 10)
 //最初にnilだとエラーを吐いてしまうので、一時的に入れている画像URL
 var imageURL = "https://user-images.githubusercontent.com/69156255/179443993-07261c4d-4a3f-47e6-9a21-6d8def61f91e.gif"
 
