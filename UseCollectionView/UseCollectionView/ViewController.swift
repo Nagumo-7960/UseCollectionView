@@ -71,7 +71,9 @@ class ViewController: UIViewController {
             if let data = data{
                 do{
                     let qiita = try JSONDecoder().decode([Qiita].self, from: data)
-                    qiitaUserName = qiita[1].user.name
+                    for i in 0..<qiitaUserName.count{
+                    qiitaUserName[i] = qiita[i].user.name
+                    }
                     imageURL = qiita.first?.user.profileImageUrl ?? ""
                     print("json: ", qiita)
                     DispatchQueue.main.async {
