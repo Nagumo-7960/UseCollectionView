@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     
     
     private func getQiitaAPI(){
-        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=5")else {return}
+        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=10")else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -117,6 +117,8 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
             let image = (cell.contentView.viewWithTag(2) as! UIImageView)
             image.image = sampleImage
             image.layer.cornerRadius = image.frame.height*0.4
+            
+            
         }catch let err {
             print("Error : \(err.localizedDescription)")
         }
@@ -126,10 +128,10 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let label = (cell.contentView.viewWithTag(1) as! UILabel)
         //        label.text = textArray.randomElement()
-        if(qiitaUserName==""){
+        if(qiitaUserName[indexPath.row]==""){
             label.text = "[nameless]"
         }else{
-            label.text = qiitaUserName
+            label.text = qiitaUserName[indexPath.row]
         }
         
         
