@@ -30,9 +30,9 @@ struct User:Codable{
     }
 }
 
-var qiitaUserName = Array(repeating : "", count : 10)
+var qiitaUserName = Array(repeating : "", count : 30)
 
-var imageURL = Array(repeating : "https://user-images.githubusercontent.com/69156255/179443993-07261c4d-4a3f-47e6-9a21-6d8def61f91e.gif", count : 10)
+var imageURL = Array(repeating : "https://user-images.githubusercontent.com/69156255/179443993-07261c4d-4a3f-47e6-9a21-6d8def61f91e.gif", count : 30)
 //最初にnilだとエラーを吐いてしまうので、一時的に入れている画像URL
 
 class ViewController: UIViewController {
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
     
     
     private func getQiitaAPI(){
-        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=10")else {return}
+        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=30")else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
