@@ -29,11 +29,12 @@ struct User:Codable{
         case profileImageUrl = "profile_image_url"
     }
 }
-
-var qiitaUserName = Array(repeating : "", count : 30)
-
-var imageURL = Array(repeating : "https://user-images.githubusercontent.com/69156255/179443993-07261c4d-4a3f-47e6-9a21-6d8def61f91e.gif", count : 30)
+//dataCountは50以下
+let dataCount = 20
+var qiitaUserName = Array(repeating : "", count : dataCount)
 //最初にnilだとエラーを吐いてしまうので、一時的に入れている画像URL
+var imageURL = Array(repeating : "https://user-images.githubusercontent.com/69156255/179443993-07261c4d-4a3f-47e6-9a21-6d8def61f91e.gif", count : dataCount)
+
 
 class ViewController: UIViewController {
     private var qiitas = [Qiita]()
@@ -59,7 +60,7 @@ class ViewController: UIViewController {
     
     
     private func getQiitaAPI(){
-        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=30")else {return}
+        guard let url = URL(string: "https://qiita.com/api/v2/items?page=1&per_page=50")else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -72,7 +73,7 @@ class ViewController: UIViewController {
             if let data = data{
                 do{
                     let qiita = try JSONDecoder().decode([Qiita].self, from: data)
-                    for i in 0..<qiitaUserName.count{
+                    for i in 0..<dataCount{
                     qiitaUserName[i] = qiita[i].user.name
                         imageURL[i] = qiita[i].user.profileImageUrl
                     }
@@ -140,7 +141,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageURL.count
+        return dataCount
     }
     func collectionView(_ collectionView: UICollectionView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
