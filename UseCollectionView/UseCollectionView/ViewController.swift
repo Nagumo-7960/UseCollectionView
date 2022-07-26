@@ -10,12 +10,12 @@ import UIKit
 //Dataを構造体で受け取る
 struct Qiita:Codable{
     let title:String
-    let createdAt:String
+    let url:String
     let user: User
     
     enum CodingKeys:String, CodingKey{
         case title = "title"
-        case createdAt = "created_at"
+        case url = "url"
         case user = "user"
     }
 }
