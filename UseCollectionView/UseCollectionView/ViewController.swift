@@ -10,12 +10,12 @@ import UIKit
 //Dataを構造体で受け取る
 struct Qiita:Codable{
     let title:String
-    let url:String
+    let imagePath:String
     let user: User
     
     enum CodingKeys:String, CodingKey{
         case title = "title"
-        case url = "url"
+        case imagePath = "url"
         case user = "user"
     }
 }
@@ -38,7 +38,7 @@ var imageURL = Array(repeating : "https://user-images.githubusercontent.com/6915
 
 class ViewController: UIViewController {
     private var qiitas = [Qiita]()
-
+    
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
     
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
                 do{
                     let qiita = try JSONDecoder().decode([Qiita].self, from: data)
                     for i in 0..<dataCount{
-                    qiitaUserName[i] = qiita[i].user.name
+                        qiitaUserName[i] = qiita[i].user.name
                         imageURL[i] = qiita[i].user.profileImageUrl
                     }
                     print("json: ", qiita)
@@ -110,7 +110,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         cell.layer.shadowOpacity = 0.1
         cell.layer.shadowRadius = 8.0
         
-
+        
         
         let url = URL(string: imageURL[indexPath.row])
         do{
